@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Page Executivo - Tem Tudo para Carros</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .slide-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            overflow: hidden;
+            aspect-ratio: 16/9; /* Mantém a proporção de um slide de apresentação */
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            min-height: 80vh; /* Garante que o container ocupe uma altura mínima */
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #2563eb;
+        }
+        
+        .main-title {
+            font-size: 42px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+        
+        .subtitle {
+            font-size: 24px;
+            font-weight: 500;
+            color: #64748b;
+            margin-bottom: 12px;
+        }
+        
+        .company-info {
+            font-size: 16px;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 25px;
+            flex-grow: 1; /* Permite que a grade ocupe o espaço disponível */
+        }
+        
+        .section {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 24px;
+            border-left: 6px solid;
+            position: relative;
+            overflow: hidden;
+            display: flex; /* Adicionado para layout interno flexível */
+            flex-direction: column; /* Conteúdo em coluna */
+        }
+        
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+            z-index: 0; /* Garante que o pseudo-elemento fique atrás do conteúdo */
+        }
+
+        .section-title, .section-content {
+            position: relative; /* Garante que o conteúdo fique acima do pseudo-elemento */
+            z-index: 1;
+        }
+        
+        .challenge {
+            border-left-color: #ef4444;
+            background: linear-gradient(135deg, #fef2f2, #fef7f7);
+        }
+        
+        .analysis {
+            border-left-color: #f59e0b;
+            background: linear-gradient(135deg, #fffbeb, #fefce8);
+        }
+        
+        .transformation {
+            border-left-color: #10b981;
+            background: linear-gradient(135deg, #ecfdf5, #f0fdf4);
+        }
+        
+        .architecture {
+            border-left-color: #8b5cf6;
+            background: linear-gradient(135deg, #faf5ff, #f3e8ff);
+        }
+        
+        .why-ondemand {
+            border-left-color: #06b6d4;
+            background: linear-gradient(135deg, #f0fdfa, #ccfbf1);
+        }
+        
+        .next-steps {
+            border-left-color: #2563eb;
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            grid-column: 1 / -1; /* Ocupa todas as colunas */
+            text-align: center;
+            display: flex; /* Adicionado para centralizar o conteúdo */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-icon {
+            font-size: 24px;
+        }
+        
+        .section-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #475569;
+            flex-grow: 1; /* Permite que o conteúdo ocupe o espaço restante */
+        }
+        
+        .highlight {
+            background: #fbbf24;
+            color: #92400e;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+        
+        .status-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 12px;
+            margin: 12px 0;
+        }
+        
+        .status-item {
+            text-align: center;
+            padding: 8px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .rejected {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        
+        .selected {
+            background: #dcfce7;
+            color: #16a34a;
+            border: 2px solid #16a34a;
+        }
+        
+        .comparison-table {
+            font-size: 12px;
+            margin: 8px 0;
+        }
+        
+        .as-is-tobe {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 12px 0;
+        }
+        
+        .state-box {
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .as-is {
+            background: #f1f5f9;
+            border: 2px solid #cbd5e1;
+        }
+        
+        .to-be {
+            background: #ecfdf5;
+            border: 2px solid #10b981;
+        }
+        
+        .state-title {
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        
+        .capabilities-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin: 12px 0;
+            font-size: 12px;
+        }
+        
+        .capability-item {
+            background: white;
+            padding: 6px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 500;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .value-points {
+            margin: 12px 0;
+        }
+        
+        .value-point {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+        
+        .value-icon {
+            color: #10b981;
+            font-weight: bold;
+            margin-top: 2px;
+        }
+        
+        .steps-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 20px 0;
+            width: 100%; /* Ocupa a largura total do container pai */
+            flex-wrap: wrap; /* Permite que os passos quebrem a linha em telas menores */
+        }
+        
+        .step {
+            text-align: center;
+            position: relative;
+            flex: 1 1 30%; /* Flex item para 3 itens por linha, com quebra */
+            min-width: 120px; /* Largura mínima para cada passo */
+            margin: 10px; /* Espaçamento entre os passos */
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #2563eb;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin: 0 auto 8px;
+        }
+        
+        .step-text {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        
+        .cta {
+            background: linear-gradient(90deg, #2563eb, #1d4ed8);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 16px;
+            display: inline-block;
+            text-decoration: none; /* Remove sublinhado de link se for usado como tal */
+        }
+        
+        .footnote {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 2px solid #e2e8f0;
+            font-size: 14px;
+            color: #64748b;
+            font-style: italic;
+        }
+
+        /* Media Queries para Responsividade */
+        @media (max-width: 1200px) {
+            .slide-container {
+                padding: 30px;
+            }
+            .main-title {
+                font-size: 36px;
+            }
+            .subtitle {
+                font-size: 20px;
+            }
+            .content-grid {
+                grid-template-columns: 1fr 1fr; /* 2 colunas em telas médias */
+            }
+            .next-steps {
+                grid-column: 1 / -1; /* Ainda ocupa todas as colunas */
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .slide-container {
+                padding: 20px;
+                aspect-ratio: auto; /* Remove a proporção fixa para melhor adaptação vertical */
+                min-height: unset; /* Permite que a altura se ajuste ao conteúdo */
+            }
+            .main-title {
+                font-size: 28px;
+            }
+            .subtitle {
+                font-size: 18px;
+            }
+            .content-grid {
+                grid-template-columns: 1fr; /* 1 coluna em telas pequenas */
+                gap: 20px;
+            }
+            .section {
+                padding: 20px;
+            }
+            .section-title {
+                font-size: 16px;
+                margin-bottom: 12px;
+            }
+            .section-icon {
+                font-size: 20px;
+            }
+            .section-content {
+                font-size: 13px;
+            }
+            .status-grid {
+                grid-template-columns: 1fr 1fr; /* 2 colunas para status em telas pequenas */
+            }
+            .as-is-tobe {
+                grid-template-columns: 1fr; /* 1 coluna para AS IS / TO BE em telas pequenas */
+            }
+            .capabilities-list {
+                grid-template-columns: 1fr; /* 1 coluna para capacidades em telas pequenas */
+            }
+            .steps-container {
+                flex-direction: column; /* Passos em coluna */
+                gap: 20px;
+            }
+            .step {
+                flex: none; /* Remove flex para que cada passo ocupe a largura total */
+                width: 100%;
+                margin: 0;
+            }
+            .cta {
+                font-size: 16px;
+                padding: 12px 24px;
+            }
+            .footnote {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="header">
+            <h1 class="main-title">Transformação Digital: Modelo ON DEMAND</h1>
+            <h2 class="subtitle">Tem Tudo para Carros - Business Architecture</h2>
+            <p class="company-info">Arquitetura de Negócios • FIAP MBA • 2025</p>
+        </div>
+        
+        <div class="content-grid">
+            <div class="section challenge">
+                <h3 class="section-title">
+                    <span class="section-icon">🎯</span>
+                    O DESAFIO
+                </h3>
+                <div class="section-content">
+                    <p><strong>Empresa:</strong> Autopeças fundada 1994</p>
+                    <p><strong>Estrutura:</strong> 3 lojas físicas</p>
+                    <p><strong>Limitação:</strong> <span class="highlight">Clientes restritos à proximidade geográfica</span></p>
+                    <p><strong>Objetivo:</strong> Expansão digital mantendo diferenciais competitivos</p>
+                </div>
+            </div>
+            
+            <div class="section analysis">
+                <h3 class="section-title">
+                    <span class="section-icon">📊</span>
+                    ANÁLISE & ESCOLHA
+                </h3>
+                <div class="section-content">
+                    <p><strong>4 Modelos Analisados:</strong></p>
+                    <div class="status-grid">
+                        <div class="status-item rejected">❌ Subscription</div>
+                        <div class="status-item rejected">❌ Marketplace</div>
+                        <div class="status-item rejected">❌ Freemium</div>
+                        <div class="status-item selected">✅ ON DEMAND</div>
+                    </div>
+                    <p><strong>Justificativa:</strong> <span class="highlight">Alinha com "compra quando precisa"</span></p>
+                </div>
+            </div>
+            
+            <div class="section transformation">
+                <h3 class="section-title">
+                    <span class="section-icon">🚀</span>
+                    TRANSFORMAÇÃO
+                </h3>
+                <div class="section-content">
+                    <div class="as-is-tobe">
+                        <div class="state-box as-is">
+                            <div class="state-title">AS IS (Atual)</div>
+                            <p>• Canal: Somente físico</p>
+                            <p>• Alcance: Regional</p>
+                            <p>• Proposta: Qualidade + Presencial</p>
+                        </div>
+                        <div class="state-box to-be">
+                            <div class="state-title">TO BE (Digital)</div>
+                            <p>• Canal: <strong>Omnichannel</strong></p>
+                            <p>• Alcance: <strong>Nacional</strong></p>
+                            <p>• Proposta: Qualidade + <strong>Conveniência 24/7</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section architecture">
+                <h3 class="section-title">
+                    <span class="section-icon">🏗️</span>
+                    ARQUITETURA DE NEGÓCIOS
+                </h3>
+                <div class="section-content">
+                    <p><strong>Novas Capacidades Core:</strong></p>
+                    <div class="capabilities-list">
+                        <div class="capability-item">Marketplace Digital</div>
+                        <div class="capability-item">Logística On Demand</div>
+                        <div class="capability-item">Cliente Digital</div>
+                        <div class="capability-item">Analytics & BI</div>
+                    </div>
+                    <p><strong>Value Stream:</strong></p>
+                    <p>Cliente → <span class="highlight">Demanda Digital</span> → Fulfillment → <span class="highlight">Entrega On Demand</span></p>
+                </div>
+            </div>
+            
+            <div class="section why-ondemand">
+                <h3 class="section-title">
+                    <span class="section-icon">💡</span>
+                    POR QUE ON DEMAND
+                </h3>
+                <div class="section-content">
+                    <div class="value-points">
+                        <div class="value-point">
+                            <span class="value-icon">🎯</span>
+                            <div><strong>Alinhamento Perfeito:</strong> Autopeças = Compra "quando precisa"</div>
+                        </div>
+                        <div class="value-point">
+                            <span class="value-icon">🏆</span>
+                            <div><strong>Mantém Diferenciais:</strong> Expertise técnica preservada no digital</div>
+                        </div>
+                        <div class="value-point">
+                            <span class="value-icon">📈</span>
+                            <div><strong>Escalabilidade:</strong> Expansão nacional sem perder DNA</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section next-steps">
+                <h3 class="section-title">
+                    <span class="section-icon">🎯</span>
+                    PRÓXIMOS PASSOS
+                </h3>
+                <div class="section-content">
+                    <div class="steps-container">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-text">Desenvolvimento<br>Plataforma Digital<br>(6 meses)</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-text">Implementação<br>Omnichannel<br>(12 meses)</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-text">Expansão<br>Nacional<br>(18 meses)</div>
+                        </div>
+                    </div>
+                    <div class="cta">
+                        🚀 Transformação que une 30 anos de expertise com conveniência moderna
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footnote">
+            <strong>Anexos:</strong> Detalhamento técnico, business case e roadmap completo disponíveis
+        </div>
+    </div>
+</body>
+</html>
